@@ -5,12 +5,12 @@ import os
 
 current_path = os.path.realpath(__file__)
 
-bin_directory = os.path.abspath(os.path.join(os.path.dirname(current_path), 'bin'))
+bin_directory = os.path.abspath(os.path.join(os.path.dirname(current_path)))
 
 bin_path = os.path.join(bin_directory, 'itican.dll')
 
 # 加载DLL
-dll = ctypes.CDLL(bin_path)
+dll = ctypes.CDLL(bin_path, ctypes.RTLD_GLOBAL)
 buffer_size = 200
 
 # 定义函数参数和返回类型
@@ -68,7 +68,8 @@ dll.setMessage.argtypes = [c_void_p, c_uint32, c_uint8, c_uint8, ctypes.POINTER(
 dll.setMessage.restype = c_int32
 
 # DLLExport int32_t setMessages(void *channel, uint32_t *id, uint8_t *type, uint8_t *extended, uint8_t *data, uint8_t *dataLength, uint32_t *items, int32_t timeout);
-dll.setMessages.argtypes = [c_void_p, ctypes.POINTER(c_uint32), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint32), c_int32]
+dll.setMessages.argtypes = [c_void_p, ctypes.POINTER(c_uint32), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8),
+                            ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint32), c_int32]
 dll.setMessages.restype = c_int32
 
 # DLLExport int32_t getMessageCount(void *channel, int32_t *count);
@@ -76,11 +77,15 @@ dll.getMessageCount.argtypes = [c_void_p, ctypes.POINTER(c_int32)]
 dll.getMessageCount.restype = c_int32
 
 # DLLExport int32_t getMessage(void *channel, uint32_t *id, uint8_t *type, uint8_t *extended, uint8_t *transmitted, uint64_t *timestamp, uint8_t *data, uint8_t *dataLength, int32_t timeout);
-dll.getMessage.argtypes = [c_void_p, ctypes.POINTER(c_uint32), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint64), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), c_int32]
+dll.getMessage.argtypes = [c_void_p, ctypes.POINTER(c_uint32), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8),
+                           ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint64), ctypes.POINTER(c_uint8),
+                           ctypes.POINTER(c_uint8), c_int32]
 dll.getMessage.restype = c_int32
 
 # DLLExport int32_t getMessages(void *channel, uint32_t *id, uint8_t *type, uint8_t *extended, uint8_t *transmitted, uint64_t *timestamp, uint8_t *data, uint8_t *dataLength, uint32_t *items, int32_t timeout);
-dll.getMessages.argtypes = [c_void_p, ctypes.POINTER(c_uint32), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint64), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint32), c_int32]
+dll.getMessages.argtypes = [c_void_p, ctypes.POINTER(c_uint32), ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint8),
+                            ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint64), ctypes.POINTER(c_uint8),
+                            ctypes.POINTER(c_uint8), ctypes.POINTER(c_uint32), c_int32]
 dll.getMessages.restype = c_int32
 
 # DLLExport int32_t isTerminationSupported(void *channel, uint8_t *supported);
@@ -138,5 +143,3 @@ dll.blinkChannel.restype = c_int32
 # DLLExport int32_t isChannelBlinking(void *channel, uint8_t *blinking);
 dll.isChannelBlinking.argtypes = [c_void_p, ctypes.POINTER(c_uint8)]
 dll.isChannelBlinking.restype = c_int32
-
-
