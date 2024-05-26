@@ -190,7 +190,16 @@ class ITICANChannel:
         result = importDLL.dll.setBaudRate(self.chn_pointer, baud_rate_)
         return result
 
-    def set_custom_baud_rate(self, brp, ts1, ts2, sjw):
+    def set_custom_baud_rate(self, brp: int, ts1: int, ts2: int, sjw: int):
+        """
+        设置仲裁段自定义波特率参数， 均使用算数值（无需减1），can clk = 80Mhz
+
+        :param brp: 预分频
+        :param ts1: 相位缓冲段1
+        :param ts2: 相位缓冲段2
+        :param sjw: 发送延迟补偿
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         base = 0xA0000000
@@ -231,7 +240,17 @@ class ITICANChannel:
         result = importDLL.dll.setFdBaudRate(self.chn_pointer, baud_rate_)
         return result
 
-    def set_custom_fd_baud_rate(self, brp, ts1, ts2, sjw, tdc_o):
+    def set_custom_fd_baud_rate(self, brp: int, ts1: int, ts2: int, sjw: int, tdc_o: int):
+        """
+        设置数据段自定义波特率参数，均使用算数值（无需减1），can clk = 80Mhz
+
+        :param brp: 时钟预分频
+        :param ts1: 相位缓冲段1
+        :param ts2: 相位缓冲段2
+        :param sjw: 同步跳转宽度
+        :param tdc_o: 发送延迟补偿
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         base = 0xA0000000
