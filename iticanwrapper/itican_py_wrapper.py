@@ -76,7 +76,7 @@ class CANMessage:
 
                 :param can_id: CAN 通信id
                 :param can_type:  CAN 消息类型
-                :param can_extended:  CAN 消息拓展帧属性
+                :param can_extended:  CAN 消息拓展帧属性； 0, 非拓展帧；非 0， 拓展帧
                 :param can_data:  CAN 消息数据段
             """
     def __init__(self, can_id: int, can_type: MessageType, can_extended: int, can_data: list):
@@ -111,7 +111,7 @@ class ITICANChannel:
 
         :param chn_names_output: 清空 list 后，传出存在的所有通道索引名的列表
         :param chn_count_output: 清空 list 后，传出通道索引个数，保存在 index=0 处
-        :return:
+        :return: getLastError 错误码
         """
         chn_names_output.clear()
         chn_count_output.clear()

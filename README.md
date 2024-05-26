@@ -1,4 +1,5 @@
 ## 构建文档
+[API documentation](./doc/_build/html/index.html)
 ```shell
 # requirements
 pip install sphinx
