@@ -60,16 +60,18 @@ if __name__ == '__main__':
     rt = target_chn_container0[0].apply_settings(True)
     ITICANChannel.get_last_error(rt, error_spec)
     print("检查错误状态：", error_spec)
-    data = [1, 2, 3, 4, 5, 6]
+    data = [1, 2, 3, 4, 5, 6,7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,20]
     can_msg = CANMessage(1, MessageType.FD_BRS_CAN, 0, data)
     listenThread = threading.Thread(target=ListenMessageTest, args=(target_chn_container0[0],))
-    listenThread.daemon=True
+    listenThread.daemon = True
     listenThread.start()
-    # for i in range(50000):
-    #     rt = target_chn_container0[0].set_message(can_msg, 0)
-    #     if rt != 0:
-    #         break
-    # time.sleep(10)
+    for i in range(50000):
+        rt = target_chn_container0[0].set_message(can_msg, 0)
+        if rt != 0:
+            break
+    ITICANChannel.get_last_error(rt, error_spec)
+    print("检查错误状态：", error_spec)
+    input()
     rt=target_chn_container0[0].close_channel()
     ITICANChannel.get_last_error(rt, error_spec)
     print("检查错误状态：", error_spec)
