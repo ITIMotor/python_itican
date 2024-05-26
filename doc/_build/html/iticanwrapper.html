@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iticanwrapper package &mdash; iticanwrapper  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="iticanwrapper.bin package" href="iticanwrapper.bin.html" />
+    <link rel="prev" title="Welcome to iticanwrapper’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            iticanwrapper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">iticanwrapper package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="iticanwrapper.bin.html">iticanwrapper.bin package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-iticanwrapper.itican_py_wrapper">iticanwrapper.itican_py_wrapper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.CANMessage"><code class="docutils literal notranslate"><span class="pre">CANMessage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel"><code class="docutils literal notranslate"><span class="pre">ITICANChannel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.apply_settings"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.apply_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.bus_error_report"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.bus_error_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_blink_supported"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.check_if_blink_supported()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_channel_blinking"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.check_if_channel_blinking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_enabled"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.check_if_echo_message_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_supported"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.check_if_echo_message_supported()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_enabled"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.check_if_termination_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_supported"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.check_if_termination_supported()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_tx_mode_supported"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.check_if_tx_mode_supported()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.close_channel"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.close_channel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.find_all_channels"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.find_all_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_baud_rate"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_baud_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_channel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel_name"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_channel_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_custom_baud_rate"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_custom_baud_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_fd_baud_rate"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_fd_baud_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_last_error"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_last_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_message"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_message_count"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_message_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_messages"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.get_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.open_channel"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.open_channel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_baud_rate"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_baud_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_channel_blink"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_channel_blink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_baud_rate"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_custom_baud_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_fd_baud_rate"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_custom_fd_baud_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_echo_message"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_echo_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_fd_baud_rate"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_fd_baud_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_message"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_messages"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_termination"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_termination()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_mode"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_tx_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_timing"><code class="docutils literal notranslate"><span class="pre">ITICANChannel.set_tx_timing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.MessageType"><code class="docutils literal notranslate"><span class="pre">MessageType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.MessageType.Classic_CAN"><code class="docutils literal notranslate"><span class="pre">MessageType.Classic_CAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.MessageType.FD_BRS_CAN"><code class="docutils literal notranslate"><span class="pre">MessageType.FD_BRS_CAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.MessageType.FD_CAN"><code class="docutils literal notranslate"><span class="pre">MessageType.FD_CAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.MessageType.Remote"><code class="docutils literal notranslate"><span class="pre">MessageType.Remote</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenMode"><code class="docutils literal notranslate"><span class="pre">OpenMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenMode.Listen"><code class="docutils literal notranslate"><span class="pre">OpenMode.Listen</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenMode.Loopback"><code class="docutils literal notranslate"><span class="pre">OpenMode.Loopback</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenMode.Normal"><code class="docutils literal notranslate"><span class="pre">OpenMode.Normal</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenType"><code class="docutils literal notranslate"><span class="pre">OpenType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenType.Classic_CAN"><code class="docutils literal notranslate"><span class="pre">OpenType.Classic_CAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenType.FD_CAN"><code class="docutils literal notranslate"><span class="pre">OpenType.FD_CAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenType.FD_CAN_BRS"><code class="docutils literal notranslate"><span class="pre">OpenType.FD_CAN_BRS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenType.FD_CAN_NO_ISO"><code class="docutils literal notranslate"><span class="pre">OpenType.FD_CAN_NO_ISO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.TxMode"><code class="docutils literal notranslate"><span class="pre">TxMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.TxMode.AUTO_SEND"><code class="docutils literal notranslate"><span class="pre">TxMode.AUTO_SEND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.TxMode.Normal"><code class="docutils literal notranslate"><span class="pre">TxMode.Normal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.TxMode.QUEUE_SEND"><code class="docutils literal notranslate"><span class="pre">TxMode.QUEUE_SEND</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">iticanwrapper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">iticanwrapper package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/iticanwrapper.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-iticanwrapper">
+<span id="iticanwrapper-package"></span><h1>iticanwrapper package<a class="headerlink" href="#module-iticanwrapper" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="iticanwrapper.bin.html">iticanwrapper.bin package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iticanwrapper.bin.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iticanwrapper.bin.html#module-iticanwrapper.bin.importDLL">iticanwrapper.bin.importDLL module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-iticanwrapper.itican_py_wrapper">
+<span id="iticanwrapper-itican-py-wrapper-module"></span><h2>iticanwrapper.itican_py_wrapper module<a class="headerlink" href="#module-iticanwrapper.itican_py_wrapper" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.CANMessage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">iticanwrapper.itican_py_wrapper.</span></span><span class="sig-name descname"><span class="pre">CANMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">can_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">can_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.MessageType" title="iticanwrapper.itican_py_wrapper.MessageType"><span class="pre">MessageType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">can_extended</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">can_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#CANMessage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.CANMessage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>CAN 消息数据结构</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>can_id</strong> – CAN 通信id</p></li>
+<li><p><strong>can_type</strong> – CAN 消息类型</p></li>
+<li><p><strong>can_extended</strong> – CAN 消息拓展帧属性； 0, 非拓展帧；非 0， 拓展帧</p></li>
+<li><p><strong>can_data</strong> – CAN 消息数据段</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">iticanwrapper.itican_py_wrapper.</span></span><span class="sig-name descname"><span class="pre">ITICANChannel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.apply_settings">
+<span class="sig-name descname"><span class="pre">apply_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temporary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.apply_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.apply_settings" title="Link to this definition"></a></dt>
+<dd><p>应用硬件参数设置</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>硬件保存设置信息目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>temporary</strong> – 设置信息是否保存在硬件中 False: 保存在硬件中； True: 不保存在硬件中</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.bus_error_report">
+<span class="sig-name descname"><span class="pre">bus_error_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.bus_error_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.bus_error_report" title="Link to this definition"></a></dt>
+<dd><p>设置硬件是否向上位机响应总线错误信息</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>硬件响应总线错误信息目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> – 使能开关</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_blink_supported">
+<span class="sig-name descname"><span class="pre">check_if_blink_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.check_if_blink_supported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_blink_supported" title="Link to this definition"></a></dt>
+<dd><p>检查通道是否支持物理接口闪烁</p>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>通道物理接口闪烁目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>check_result</strong> – 传出检查结果（True,False)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_channel_blinking">
+<span class="sig-name descname"><span class="pre">check_if_channel_blinking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.check_if_channel_blinking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_channel_blinking" title="Link to this definition"></a></dt>
+<dd><p>检查通道物理接口是否处在闪烁状态</p>
+<blockquote>
+<div><div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>通道物理接口闪烁目前不支持</p>
+</div>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>check_result</strong> – 传出检查结果（True,False)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_enabled">
+<span class="sig-name descname"><span class="pre">check_if_echo_message_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.check_if_echo_message_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_enabled" title="Link to this definition"></a></dt>
+<dd><p>检查硬件是否已启动回显已发送的 CAN 消息</p>
+<div class="admonition-todo admonition" id="id5">
+<p class="admonition-title">Todo</p>
+<p>消息回显目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>check_result</strong> – 传出检查结果 (True,False)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_supported">
+<span class="sig-name descname"><span class="pre">check_if_echo_message_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.check_if_echo_message_supported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_supported" title="Link to this definition"></a></dt>
+<dd><p>检查硬件是否支持回显已发送的 CAN 消息</p>
+<div class="admonition-todo admonition" id="id6">
+<p class="admonition-title">Todo</p>
+<p>消息回显目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>check_result</strong> – 传出检查结果 (True,False)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_enabled">
+<span class="sig-name descname"><span class="pre">check_if_termination_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.check_if_termination_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_enabled" title="Link to this definition"></a></dt>
+<dd><p>检查硬件是否已启动内置终端电阻</p>
+<div class="admonition-todo admonition" id="id7">
+<p class="admonition-title">Todo</p>
+<p>内置终端电阻目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enabled_output</strong> – 传出检查结果 (Ture,False)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_supported">
+<span class="sig-name descname"><span class="pre">check_if_termination_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.check_if_termination_supported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_supported" title="Link to this definition"></a></dt>
+<dd><p>检查硬件是否支持使用内置终端电阻</p>
+<div class="admonition-todo admonition" id="id8">
+<p class="admonition-title">Todo</p>
+<p>内置终端电阻目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>check_result</strong> – 传出检查结果</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_tx_mode_supported">
+<span class="sig-name descname"><span class="pre">check_if_tx_mode_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.TxMode" title="iticanwrapper.itican_py_wrapper.TxMode"><span class="pre">TxMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.check_if_tx_mode_supported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_tx_mode_supported" title="Link to this definition"></a></dt>
+<dd><p>检查特定工作模式是否支持</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> – 模式选择</p></li>
+<li><p><strong>check_result</strong> – 传出检查结果(True,False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.close_channel">
+<span class="sig-name descname"><span class="pre">close_channel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.close_channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.close_channel" title="Link to this definition"></a></dt>
+<dd><p>关闭通道</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.find_all_channels">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_all_channels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chn_names_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chn_count_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.find_all_channels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.find_all_channels" title="Link to this definition"></a></dt>
+<dd><p>查找所有通道引用名</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chn_names_output</strong> – 清空 list 后，传出存在的所有通道索引名的列表</p></li>
+<li><p><strong>chn_count_output</strong> – 清空 list 后，传出通道索引个数，保存在 index=0 处</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_baud_rate">
+<span class="sig-name descname"><span class="pre">get_baud_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baud_rate_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_baud_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_baud_rate" title="Link to this definition"></a></dt>
+<dd><p>获取仲裁段波特率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>baud_rate_output</strong> – 传出仲裁段波特率，清空 list 后，保存仲裁段波特率在 index=0 处</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chn_container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chn_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel" title="Link to this definition"></a></dt>
+<dd><p>获取通道</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chn_container</strong> – 用于传出通道实例对象，清空 list 后，保存在 index=0 处</p></li>
+<li><p><strong>chn_index</strong> – 目标通道对应索引名</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel_name">
+<span class="sig-name descname"><span class="pre">get_channel_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chn_name_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_channel_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel_name" title="Link to this definition"></a></dt>
+<dd><p>读取通道索引名</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chn_name_output</strong> – 清空 list 后，获取通道索引名称，保存在 index=0 处</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_custom_baud_rate">
+<span class="sig-name descname"><span class="pre">get_custom_baud_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_baud_rate_str_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_custom_baud_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_custom_baud_rate" title="Link to this definition"></a></dt>
+<dd><p>获取波特率参数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>custom_baud_rate_str_output</strong> – list ; 传出字符串形式的波特率参数（hex,hex），清空 list， 保存在 index=0 的位置</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_fd_baud_rate">
+<span class="sig-name descname"><span class="pre">get_fd_baud_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baud_rate_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_fd_baud_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_fd_baud_rate" title="Link to this definition"></a></dt>
+<dd><p>获取数据段波特率参数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>baud_rate_output</strong> – 传出数据段波特率参数，清空 list 后， 保存在 index=0 处</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_last_error">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_last_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_specification_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_last_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_last_error" title="Link to this definition"></a></dt>
+<dd><p>解析错误码</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_code</strong> – 其他函数返回值（错误码）</p></li>
+<li><p><strong>error_specification_output</strong> – 清空 list，在 index=0 处填入错误描述</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_message">
+<span class="sig-name descname"><span class="pre">get_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">one_message_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_message" title="Link to this definition"></a></dt>
+<dd><p>读取一条 CAN 消息</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>one_message_output</strong> – 清空List后，在 index=0 处填入一条 CAN 消息</p></li>
+<li><p><strong>timeout</strong> – 读取操作超时时长</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_message_count">
+<span class="sig-name descname"><span class="pre">get_message_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_count_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_message_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_message_count" title="Link to this definition"></a></dt>
+<dd><p>传出已接收CAN消息个数</p>
+<div class="admonition-todo admonition" id="id9">
+<p class="admonition-title">Todo</p>
+<p>检查已接收 CAN 消息个数目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message_count_output</strong> – 传出已接收CAN消息个数，清空 list，保存在 index=0 处</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.get_messages">
+<span class="sig-name descname"><span class="pre">get_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages_container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.get_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.get_messages" title="Link to this definition"></a></dt>
+<dd><p>读取多条 CAN 消息</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>messages_container</strong> – 清空list后，填入 CAN 消息</p></li>
+<li><p><strong>items</strong> – 预期读取 CAN 消息个数</p></li>
+<li><p><strong>timeout</strong> – 单条 CAN消息接收操作超时时长</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.open_channel">
+<span class="sig-name descname"><span class="pre">open_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenType" title="iticanwrapper.itican_py_wrapper.OpenType"><span class="pre">OpenType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.OpenMode" title="iticanwrapper.itican_py_wrapper.OpenMode"><span class="pre">OpenMode</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.open_channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.open_channel" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>开启通道</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>open_type</strong> – OpenType</p></li>
+<li><p><strong>open_mode</strong> – OpenMode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_baud_rate">
+<span class="sig-name descname"><span class="pre">set_baud_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baud_rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_baud_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_baud_rate" title="Link to this definition"></a></dt>
+<dd><p>设置通道仲裁段波特率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>baud_rate</strong> – 仲裁段波特率参数</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_channel_blink">
+<span class="sig-name descname"><span class="pre">set_channel_blink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_channel_blink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_channel_blink" title="Link to this definition"></a></dt>
+<dd><p>设置通道物理接口闪烁</p>
+<div class="admonition-todo admonition" id="id10">
+<p class="admonition-title">Todo</p>
+<p>通道物理接口闪烁目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> – 使能开关 True: open ; False: close</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_baud_rate">
+<span class="sig-name descname"><span class="pre">set_custom_baud_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sjw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_custom_baud_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_baud_rate" title="Link to this definition"></a></dt>
+<dd><p>设置仲裁段自定义波特率参数， 均使用算数值（无需减1），can clk = 80Mhz</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brp</strong> – 预分频</p></li>
+<li><p><strong>ts1</strong> – 相位缓冲段1</p></li>
+<li><p><strong>ts2</strong> – 相位缓冲段2</p></li>
+<li><p><strong>sjw</strong> – 发送延迟补偿</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_fd_baud_rate">
+<span class="sig-name descname"><span class="pre">set_custom_fd_baud_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sjw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tdc_o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_custom_fd_baud_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_fd_baud_rate" title="Link to this definition"></a></dt>
+<dd><p>设置数据段自定义波特率参数，均使用算数值（无需减1），can clk = 80Mhz</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brp</strong> – 时钟预分频</p></li>
+<li><p><strong>ts1</strong> – 相位缓冲段1</p></li>
+<li><p><strong>ts2</strong> – 相位缓冲段2</p></li>
+<li><p><strong>sjw</strong> – 同步跳转宽度</p></li>
+<li><p><strong>tdc_o</strong> – 发送延迟补偿</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_echo_message">
+<span class="sig-name descname"><span class="pre">set_echo_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_echo_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_echo_message" title="Link to this definition"></a></dt>
+<dd><p>使能 CAN 消息回显</p>
+<div class="admonition-todo admonition" id="id11">
+<p class="admonition-title">Todo</p>
+<p>消息回显目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> – 使能开关； True, 开启 ; False, 关闭</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_fd_baud_rate">
+<span class="sig-name descname"><span class="pre">set_fd_baud_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baud_rate_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_fd_baud_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_fd_baud_rate" title="Link to this definition"></a></dt>
+<dd><p>设置数据段波特率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>baud_rate_input</strong> – 数据段波特率参数</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_message">
+<span class="sig-name descname"><span class="pre">set_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">one_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.CANMessage" title="iticanwrapper.itican_py_wrapper.CANMessage"><span class="pre">CANMessage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_message" title="Link to this definition"></a></dt>
+<dd><p>设置一条 CAN 消息</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>one_message</strong> – CAN 消息（CANMessage）</p></li>
+<li><p><strong>timeout</strong> – 设置 CAN 消息操作的超时时间，底层使用队列缓冲则该参数无效（底层使用队列缓冲）</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_messages">
+<span class="sig-name descname"><span class="pre">set_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages_container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">items_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_messages" title="Link to this definition"></a></dt>
+<dd><p>设置多条 CAN 消息</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>messages_container</strong> – 容纳多条 CAN 消息（CANMessage）</p></li>
+<li><p><strong>items_output</strong> – 传出设置成功的 CAN 消息的个数，清空 list 后，保存到 index=0 处</p></li>
+<li><p><strong>timeout</strong> – 设置单条 CAN 消息的超时时间</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_termination">
+<span class="sig-name descname"><span class="pre">set_termination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_termination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_termination" title="Link to this definition"></a></dt>
+<dd><p>设置硬件内部终端电阻开关</p>
+<div class="admonition-todo admonition" id="id12">
+<p class="admonition-title">Todo</p>
+<p>内置终端电阻目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> – 使能开关; True, 开启; False, 关闭</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_mode">
+<span class="sig-name descname"><span class="pre">set_tx_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#iticanwrapper.itican_py_wrapper.TxMode" title="iticanwrapper.itican_py_wrapper.TxMode"><span class="pre">TxMode</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_tx_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_mode" title="Link to this definition"></a></dt>
+<dd><p>设置发送模式</p>
+<div class="admonition-todo admonition" id="id13">
+<p class="admonition-title">Todo</p>
+<p>发送模式切换目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> – 模式选择</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_timing">
+<span class="sig-name descname"><span class="pre">set_tx_timing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">can_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#ITICANChannel.set_tx_timing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_timing" title="Link to this definition"></a></dt>
+<dd><p>设置硬件定时发送</p>
+<div class="admonition-todo admonition" id="id14">
+<p class="admonition-title">Todo</p>
+<p>硬件定时发送目前不支持</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>can_id</strong> – CAN 消息 id</p></li>
+<li><p><strong>period</strong> – 发送时间间隔 (ms)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>getLastError 错误码</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.MessageType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">iticanwrapper.itican_py_wrapper.</span></span><span class="sig-name descname"><span class="pre">MessageType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#MessageType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.MessageType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.MessageType.Classic_CAN">
+<span class="sig-name descname"><span class="pre">Classic_CAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.MessageType.Classic_CAN" title="Link to this definition"></a></dt>
+<dd><p>经典 CAN 帧</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.MessageType.FD_BRS_CAN">
+<span class="sig-name descname"><span class="pre">FD_BRS_CAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">24</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.MessageType.FD_BRS_CAN" title="Link to this definition"></a></dt>
+<dd><p>FD CAN 帧，切换波特率</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.MessageType.FD_CAN">
+<span class="sig-name descname"><span class="pre">FD_CAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.MessageType.FD_CAN" title="Link to this definition"></a></dt>
+<dd><p>FD CAN 帧，不切换波特率</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.MessageType.Remote">
+<span class="sig-name descname"><span class="pre">Remote</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.MessageType.Remote" title="Link to this definition"></a></dt>
+<dd><p>远程帧</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">iticanwrapper.itican_py_wrapper.</span></span><span class="sig-name descname"><span class="pre">OpenMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#OpenMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenMode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenMode.Listen">
+<span class="sig-name descname"><span class="pre">Listen</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenMode.Listen" title="Link to this definition"></a></dt>
+<dd><p>仅监听模式，目前不支持</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenMode.Loopback">
+<span class="sig-name descname"><span class="pre">Loopback</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenMode.Loopback" title="Link to this definition"></a></dt>
+<dd><p>内部回环模式，目前不支持</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenMode.Normal">
+<span class="sig-name descname"><span class="pre">Normal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenMode.Normal" title="Link to this definition"></a></dt>
+<dd><p>普通模式</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">iticanwrapper.itican_py_wrapper.</span></span><span class="sig-name descname"><span class="pre">OpenType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#OpenType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenType.Classic_CAN">
+<span class="sig-name descname"><span class="pre">Classic_CAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenType.Classic_CAN" title="Link to this definition"></a></dt>
+<dd><p>经典 CAN 模式</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenType.FD_CAN">
+<span class="sig-name descname"><span class="pre">FD_CAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenType.FD_CAN" title="Link to this definition"></a></dt>
+<dd><p>FD CAN 模式</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenType.FD_CAN_BRS">
+<span class="sig-name descname"><span class="pre">FD_CAN_BRS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenType.FD_CAN_BRS" title="Link to this definition"></a></dt>
+<dd><p>变速率 FD CAN 模式</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.OpenType.FD_CAN_NO_ISO">
+<span class="sig-name descname"><span class="pre">FD_CAN_NO_ISO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.OpenType.FD_CAN_NO_ISO" title="Link to this definition"></a></dt>
+<dd><p>非 ISO FD CAN 模式，目前不支持</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.TxMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">iticanwrapper.itican_py_wrapper.</span></span><span class="sig-name descname"><span class="pre">TxMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iticanwrapper/itican_py_wrapper.html#TxMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.TxMode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.TxMode.AUTO_SEND">
+<span class="sig-name descname"><span class="pre">AUTO_SEND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.TxMode.AUTO_SEND" title="Link to this definition"></a></dt>
+<dd><p>硬件自动发送模式下的 CAN 刷新消息, 目前不支持</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.TxMode.Normal">
+<span class="sig-name descname"><span class="pre">Normal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.TxMode.Normal" title="Link to this definition"></a></dt>
+<dd><p>普通 CAN 消息</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iticanwrapper.itican_py_wrapper.TxMode.QUEUE_SEND">
+<span class="sig-name descname"><span class="pre">QUEUE_SEND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#iticanwrapper.itican_py_wrapper.TxMode.QUEUE_SEND" title="Link to this definition"></a></dt>
+<dd><p>队列发送模式，目前不支持</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to iticanwrapper’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="iticanwrapper.bin.html" class="btn btn-neutral float-right" title="iticanwrapper.bin package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iticanwrapper.itican_py_wrapper &mdash; iticanwrapper  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            iticanwrapper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../iticanwrapper.html">iticanwrapper package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">iticanwrapper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">iticanwrapper.itican_py_wrapper</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for iticanwrapper.itican_py_wrapper</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">ctypes</span>
+
+<span class="kn">from</span> <span class="nn">iticanwrapper.bin</span> <span class="kn">import</span> <span class="n">importDLL</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OpenType&#39;</span><span class="p">,</span> <span class="s1">&#39;OpenMode&#39;</span><span class="p">,</span> <span class="s1">&#39;MessageType&#39;</span><span class="p">,</span> <span class="s1">&#39;TxMode&#39;</span><span class="p">,</span> <span class="s1">&#39;CANMessage&#39;</span><span class="p">,</span> <span class="s1">&#39;ITICANChannel&#39;</span><span class="p">]</span>
+
+<span class="n">_debug_mode</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">_CAN_Clock_Frequency_MHz</span> <span class="o">=</span> <span class="mi">80</span>
+
+
+<div class="viewcode-block" id="OpenType">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.OpenType">[docs]</a>
+<span class="k">class</span> <span class="nc">OpenType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">Classic_CAN</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    经典 CAN 模式</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FD_CAN</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    FD CAN 模式</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FD_CAN_BRS</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    变速率 FD CAN 模式</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FD_CAN_NO_ISO</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    非 ISO FD CAN 模式，目前不支持</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="OpenMode">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.OpenMode">[docs]</a>
+<span class="k">class</span> <span class="nc">OpenMode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">Normal</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;普通模式&quot;&quot;&quot;</span>
+    <span class="n">Listen</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    仅监听模式，目前不支持</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Loopback</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    内部回环模式，目前不支持</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="MessageType">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.MessageType">[docs]</a>
+<span class="k">class</span> <span class="nc">MessageType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">Classic_CAN</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    经典 CAN 帧</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Remote</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    远程帧</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FD_CAN</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    FD CAN 帧，不切换波特率</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FD_BRS_CAN</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    FD CAN 帧，切换波特率</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TxMode">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.TxMode">[docs]</a>
+<span class="k">class</span> <span class="nc">TxMode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">Normal</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;普通 CAN 消息&quot;&quot;&quot;</span>
+    <span class="n">AUTO_SEND</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;硬件自动发送模式下的 CAN 刷新消息, 目前不支持&quot;&quot;&quot;</span>
+    <span class="n">QUEUE_SEND</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;队列发送模式，目前不支持&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="CANMessage">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.CANMessage">[docs]</a>
+<span class="k">class</span> <span class="nc">CANMessage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                CAN 消息数据结构</span>
+
+<span class="sd">                :param can_id: CAN 通信id</span>
+<span class="sd">                :param can_type:  CAN 消息类型</span>
+<span class="sd">                :param can_extended:  CAN 消息拓展帧属性； 0, 非拓展帧；非 0， 拓展帧</span>
+<span class="sd">                :param can_data:  CAN 消息数据段</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">can_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">can_type</span><span class="p">:</span> <span class="n">MessageType</span><span class="p">,</span> <span class="n">can_extended</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">can_data</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            CAN 消息数据结构</span>
+
+<span class="sd">            :param can_id: CAN 通信id</span>
+<span class="sd">            :param can_type:  CAN 消息类型</span>
+<span class="sd">            :param can_extended:  CAN 消息拓展帧属性</span>
+<span class="sd">            :param can_data:  CAN 消息数据段</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id_</span> <span class="o">=</span> <span class="n">can_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_</span><span class="p">:</span> <span class="n">MessageType</span> <span class="o">=</span> <span class="n">can_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extended_</span> <span class="o">=</span> <span class="n">can_extended</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_</span> <span class="o">=</span> <span class="n">can_data</span></div>
+
+
+
+<span class="n">initialization_error</span> <span class="o">=</span> <span class="s2">&quot;this instance is not acquired from ITICANChannel&#39;s static method&quot;</span>
+
+
+<div class="viewcode-block" id="ITICANChannel">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel">[docs]</a>
+<span class="k">class</span> <span class="nc">ITICANChannel</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pointer</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span> <span class="o">=</span> <span class="n">pointer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="ITICANChannel.find_all_channels">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.find_all_channels">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">find_all_channels</span><span class="p">(</span><span class="n">chn_names_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">chn_count_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        查找所有通道引用名</span>
+
+<span class="sd">        :param chn_names_output: 清空 list 后，传出存在的所有通道索引名的列表</span>
+<span class="sd">        :param chn_count_output: 清空 list 后，传出通道索引个数，保存在 index=0 处</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">chn_names_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">chn_count_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">str_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+        <span class="n">chn_count</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">findAllChannels</span><span class="p">(</span><span class="n">str_temp</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">chn_count</span><span class="p">))</span>
+        <span class="n">str_temp_</span> <span class="o">=</span> <span class="n">str_temp</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">str_temp_</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">chn_names_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">chn_count_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chn_count</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_debug_mode</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;debug:finAllChannels函数调用结果:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;通道索引:&quot;</span><span class="p">,</span> <span class="n">str_temp_</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;通道数量:&quot;</span><span class="p">,</span> <span class="n">chn_count</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_channel">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_channel</span><span class="p">(</span><span class="n">chn_container</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">chn_index</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取通道</span>
+
+<span class="sd">        :param chn_container: 用于传出通道实例对象，清空 list 后，保存在 index=0 处</span>
+<span class="sd">        :param chn_index: 目标通道对应索引名</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">chn_container</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="c1"># 转换参数</span>
+        <span class="n">str_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+        <span class="n">str_temp</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">chn_index</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">int_param</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">chn_ptr</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">()</span>
+        <span class="c1"># 发起dll调用</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getChannel</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">chn_ptr</span><span class="p">),</span> <span class="n">str_temp</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">int_param</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">ITICANChannel</span><span class="p">(</span><span class="n">chn_ptr</span><span class="p">)</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">_inner_flag</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">chn_container</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_last_error">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_last_error">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_last_error</span><span class="p">(</span><span class="n">error_code</span><span class="p">,</span> <span class="n">error_specification_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        解析错误码</span>
+
+<span class="sd">        :param error_code: 其他函数返回值（错误码）</span>
+<span class="sd">        :param error_specification_output: 清空 list，在 index=0 处填入错误描述</span>
+<span class="sd">        :return: 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">str_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+        <span class="n">error_code_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="n">error_code</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getLastError</span><span class="p">(</span><span class="n">str_temp</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">error_code_temp</span><span class="p">))</span>
+        <span class="n">str_temp_</span> <span class="o">=</span> <span class="n">str_temp</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">error_specification_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">error_specification_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">str_temp_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.open_channel">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.open_channel">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">open_type</span><span class="p">:</span> <span class="n">OpenType</span><span class="p">,</span> <span class="n">open_mode</span><span class="p">:</span> <span class="n">OpenMode</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         开启通道</span>
+
+<span class="sd">        :param open_type: OpenType</span>
+<span class="sd">        :param open_mode: OpenMode</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">mode_</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">open_type</span> <span class="o">==</span> <span class="n">OpenType</span><span class="o">.</span><span class="n">Classic_CAN</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">open_type</span> <span class="o">==</span> <span class="n">OpenType</span><span class="o">.</span><span class="n">FD_CAN</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">open_type</span> <span class="o">==</span> <span class="n">OpenType</span><span class="o">.</span><span class="n">FD_CAN_BRS</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">open_type</span> <span class="o">==</span> <span class="n">OpenType</span><span class="o">.</span><span class="n">FD_CAN_NO_ISO</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="k">if</span> <span class="n">open_mode</span> <span class="o">==</span> <span class="n">OpenMode</span><span class="o">.</span><span class="n">Normal</span><span class="p">:</span>
+            <span class="n">mode_</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">open_mode</span> <span class="o">==</span> <span class="n">OpenMode</span><span class="o">.</span><span class="n">Listen</span><span class="p">:</span>
+            <span class="n">mode_</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">open_mode</span> <span class="o">==</span> <span class="n">OpenMode</span><span class="o">.</span><span class="n">Loopback</span><span class="p">:</span>
+            <span class="n">mode_</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="c1"># 转换参数</span>
+        <span class="n">type_param</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="n">type_</span><span class="p">)</span>
+        <span class="n">mode_param</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="n">mode_</span><span class="p">)</span>
+
+        <span class="c1"># 发起dll调用</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">openChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">type_param</span><span class="p">,</span> <span class="n">mode_param</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+    <span class="c1"># 关闭通道  none</span>
+<div class="viewcode-block" id="ITICANChannel.close_channel">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.close_channel">[docs]</a>
+    <span class="k">def</span> <span class="nf">close_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        关闭通道</span>
+
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">closeChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_channel_name">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_channel_name">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_channel_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chn_name_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        读取通道索引名</span>
+
+<span class="sd">        :param chn_name_output: 清空 list 后，获取通道索引名称，保存在 index=0 处</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">chn_name_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">str_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getChannelName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">str_temp</span><span class="p">)</span>
+        <span class="n">chn_name</span> <span class="o">=</span> <span class="n">str_temp</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">chn_name_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chn_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_baud_rate">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_baud_rate">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_baud_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baud_rate</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置通道仲裁段波特率</span>
+
+<span class="sd">        :param baud_rate: 仲裁段波特率参数</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">baud_rate_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint64</span><span class="p">(</span><span class="n">baud_rate</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setBaudRate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">baud_rate_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_custom_baud_rate">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_baud_rate">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_custom_baud_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">brp</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ts1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ts2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sjw</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置仲裁段自定义波特率参数， 均使用算数值（无需减1），can clk = 80Mhz</span>
+
+<span class="sd">        :param brp: 预分频</span>
+<span class="sd">        :param ts1: 相位缓冲段1</span>
+<span class="sd">        :param ts2: 相位缓冲段2</span>
+<span class="sd">        :param sjw: 发送延迟补偿</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="mh">0xA0000000</span>
+        <span class="n">tq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">brp</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="n">_CAN_Clock_Frequency_MHz</span><span class="p">)</span>
+        <span class="n">ts1</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">ts2</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">tq</span> <span class="o">*</span> <span class="mh">0x100000000</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">sjw</span> <span class="o">*</span> <span class="mh">0x10000</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">ts1</span> <span class="o">*</span> <span class="mh">0x100</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">ts2</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_baud_rate</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_baud_rate">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_baud_rate">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_baud_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baud_rate_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取仲裁段波特率</span>
+
+<span class="sd">        :param baud_rate_output: 传出仲裁段波特率，清空 list 后，保存仲裁段波特率在 index=0 处</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">baud_rate_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getBaudRate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">baud_rate_</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">baud_rate_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">baud_rate_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">baud_rate_</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_fd_baud_rate">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_fd_baud_rate">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_fd_baud_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baud_rate_input</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置数据段波特率</span>
+
+<span class="sd">        :param baud_rate_input: 数据段波特率参数</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">baud_rate_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint64</span><span class="p">(</span><span class="n">baud_rate_input</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setFdBaudRate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">baud_rate_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_custom_fd_baud_rate">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_custom_fd_baud_rate">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_custom_fd_baud_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">brp</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ts1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ts2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sjw</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tdc_o</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置数据段自定义波特率参数，均使用算数值（无需减1），can clk = 80Mhz</span>
+
+<span class="sd">        :param brp: 时钟预分频</span>
+<span class="sd">        :param ts1: 相位缓冲段1</span>
+<span class="sd">        :param ts2: 相位缓冲段2</span>
+<span class="sd">        :param sjw: 同步跳转宽度</span>
+<span class="sd">        :param tdc_o: 发送延迟补偿</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="mh">0xA0000000</span>
+        <span class="n">tdc</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">tdc_o</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">tdc</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">tq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">brp</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="n">_CAN_Clock_Frequency_MHz</span><span class="p">)</span>
+        <span class="n">ts1</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">ts2</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">tdc_o</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">sjw</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">tdc</span> <span class="o">*</span> <span class="mh">0x80000000000000</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">tdc_o</span> <span class="o">*</span> <span class="mh">0x10000000000</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">tq</span> <span class="o">*</span> <span class="mh">0x2000</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">ts1</span> <span class="o">*</span> <span class="mh">0x100</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">ts2</span> <span class="o">*</span> <span class="mh">0x10</span>
+        <span class="n">base</span> <span class="o">+=</span> <span class="n">sjw</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_fd_baud_rate</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_fd_baud_rate">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_fd_baud_rate">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_fd_baud_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baud_rate_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取数据段波特率参数</span>
+
+<span class="sd">        :param baud_rate_output: 传出数据段波特率参数，清空 list 后， 保存在 index=0 处</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">baud_rate_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getBaudRate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">baud_rate_</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">baud_rate_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">baud_rate_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">baud_rate_</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_custom_baud_rate">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_custom_baud_rate">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_custom_baud_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">custom_baud_rate_str_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取波特率参数</span>
+
+<span class="sd">        :param custom_baud_rate_str_output: list ; 传出字符串形式的波特率参数（hex,hex），清空 list， 保存在 index=0 的位置</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">str_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getCustomBaudRate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">str_temp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">baud_rate_</span> <span class="o">=</span> <span class="n">str_temp</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="n">custom_baud_rate_str_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">baud_rate_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_message">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_message">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">one_message</span><span class="p">:</span> <span class="n">CANMessage</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置一条 CAN 消息</span>
+
+<span class="sd">        :param one_message: CAN 消息（CANMessage）</span>
+<span class="sd">        :param timeout: 设置 CAN 消息操作的超时时间，底层使用队列缓冲则该参数无效（底层使用队列缓冲）</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">can_id_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">(</span><span class="n">one_message</span><span class="o">.</span><span class="n">id_</span><span class="p">)</span>
+        <span class="n">message_type_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="n">one_message</span><span class="o">.</span><span class="n">type_</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">is_extended_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="n">one_message</span><span class="o">.</span><span class="n">extended_</span><span class="p">)</span>
+        <span class="n">data_array_</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">one_message</span><span class="o">.</span><span class="n">data_</span><span class="p">))(</span><span class="o">*</span><span class="p">(</span><span class="n">one_message</span><span class="o">.</span><span class="n">data_</span><span class="p">))</span>
+        <span class="n">date_length_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">one_message</span><span class="o">.</span><span class="n">data_</span><span class="p">))</span>
+        <span class="n">timeout_</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setMessage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">can_id_</span><span class="p">,</span> <span class="n">message_type_</span><span class="p">,</span> <span class="n">is_extended_</span><span class="p">,</span> <span class="n">data_array_</span><span class="p">,</span>
+                                          <span class="n">date_length_</span><span class="p">,</span>
+                                          <span class="n">timeout_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_messages">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_messages">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages_container</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">items_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置多条 CAN 消息</span>
+
+<span class="sd">        :param messages_container: 容纳多条 CAN 消息（CANMessage）</span>
+<span class="sd">        :param items_output: 传出设置成功的 CAN 消息的个数，清空 list 后，保存到 index=0 处</span>
+<span class="sd">        :param timeout: 设置单条 CAN 消息的超时时间</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">items_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">can_msg</span> <span class="ow">in</span> <span class="n">messages_container</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_message</span><span class="p">(</span><span class="n">can_msg</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">items_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">result</span>
+        <span class="n">items_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_message_count">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_message_count">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_message_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message_count_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        传出已接收CAN消息个数</span>
+
+<span class="sd">        .. TODO::</span>
+<span class="sd">                检查已接收 CAN 消息个数目前不支持</span>
+
+<span class="sd">        :param message_count_output: 传出已接收CAN消息个数，清空 list，保存在 index=0 处</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">count_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getMessageCount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">count_temp</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">count_temp</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">message_count_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">message_count_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_message">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_message">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">one_message_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        读取一条 CAN 消息</span>
+
+<span class="sd">        :param one_message_output: 清空List后，在 index=0 处填入一条 CAN 消息</span>
+<span class="sd">        :param timeout: 读取操作超时时长</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">id_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">message_type_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">can_extended_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">transmitted_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># no output</span>
+        <span class="n">timestamp_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># no output</span>
+        <span class="n">data_temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span> <span class="o">*</span> <span class="mi">64</span><span class="p">)()</span>
+        <span class="n">data_l_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">timeout_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">getMessage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">id_temp</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">message_type_temp</span><span class="p">),</span>
+                                          <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">can_extended_temp</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">transmitted_temp</span><span class="p">),</span>
+                                          <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">timestamp_temp</span><span class="p">),</span> <span class="n">data_temp</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">data_l_temp</span><span class="p">),</span>
+                                          <span class="n">timeout_temp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">data_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_temp</span><span class="p">)[:</span><span class="n">data_l_temp</span><span class="o">.</span><span class="n">value</span><span class="p">]</span>
+            <span class="n">one_message_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">one_message_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">CANMessage</span><span class="p">(</span><span class="n">id_temp</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">MessageType</span><span class="p">(</span><span class="n">message_type_temp</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">can_extended_temp</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">data_list</span><span class="p">[:]))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.get_messages">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.get_messages">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages_container</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        读取多条 CAN 消息</span>
+
+<span class="sd">        :param messages_container: 清空list后，填入 CAN 消息</span>
+<span class="sd">        :param items: 预期读取 CAN 消息个数</span>
+<span class="sd">        :param timeout: 单条 CAN消息接收操作超时时长</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">messages_container</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+            <span class="n">one_message</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">rt_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_message</span><span class="p">(</span><span class="n">one_message</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rt_val</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">messages_container</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">one_message</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">rt_val</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.check_if_termination_supported">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_supported">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_termination_supported</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_result</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查硬件是否支持使用内置终端电阻</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                内置终端电阻目前不支持</span>
+
+<span class="sd">        :param check_result: 传出检查结果</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">supported_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">isTerminationSupported</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">supported_temp</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">supported_temp</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_termination">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_termination">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_termination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置硬件内部终端电阻开关</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">            内置终端电阻目前不支持</span>
+
+<span class="sd">        :param enable: 使能开关; True, 开启; False, 关闭</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">enable</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setTermination</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setTermination</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.check_if_termination_enabled">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_termination_enabled">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_termination_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled_output</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查硬件是否已启动内置终端电阻</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                内置终端电阻目前不支持</span>
+
+<span class="sd">        :param enabled_output: 传出检查结果 (Ture,False)</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">enabled_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">isTerminationEnabled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">enabled_temp</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">enabled_output</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">enabled_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enabled_temp</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.check_if_echo_message_supported">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_supported">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_echo_message_supported</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_result</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查硬件是否支持回显已发送的 CAN 消息</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                消息回显目前不支持</span>
+
+<span class="sd">        :param check_result: 传出检查结果 (True,False)</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">supported_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">isEchoMessageSupported</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">supported_temp</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">supported_temp</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_echo_message">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_echo_message">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_echo_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        使能 CAN 消息回显</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                消息回显目前不支持</span>
+
+<span class="sd">        :param enable: 使能开关； True, 开启 ; False, 关闭</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">enable</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setTermination</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setTermination</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.check_if_echo_message_enabled">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_echo_message_enabled">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_echo_message_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_result</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查硬件是否已启动回显已发送的 CAN 消息</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                消息回显目前不支持</span>
+
+<span class="sd">        :param check_result: 传出检查结果 (True,False)</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">enabled_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">isEchoMessageEnabled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">enabled_temp</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enabled_temp</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.bus_error_report">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.bus_error_report">[docs]</a>
+    <span class="k">def</span> <span class="nf">bus_error_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置硬件是否向上位机响应总线错误信息</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                硬件响应总线错误信息目前不支持</span>
+
+<span class="sd">        :param enable: 使能开关</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">enable</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setBusErrorReport</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setBusErrorReport</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.apply_settings">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.apply_settings">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temporary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        应用硬件参数设置</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">            硬件保存设置信息目前不支持</span>
+
+<span class="sd">        :param temporary: 设置信息是否保存在硬件中 False: 保存在硬件中； True: 不保存在硬件中</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">temporary</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">applySettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">applySettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.check_if_tx_mode_supported">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_tx_mode_supported">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_tx_mode_supported</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">TxMode</span><span class="p">,</span> <span class="n">check_result</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查特定工作模式是否支持</span>
+
+<span class="sd">        :param mode: 模式选择</span>
+<span class="sd">        :param check_result: 传出检查结果(True,False)</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">mode_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="n">mode</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">supported_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">isTxModeSupported</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">mode_temp</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">supported_temp</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">supported_temp</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_tx_mode">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_mode">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_tx_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">TxMode</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置发送模式</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">             发送模式切换目前不支持</span>
+
+<span class="sd">        :param mode: 模式选择</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">mode_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="n">mode</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setTxMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">mode_temp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_tx_timing">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_tx_timing">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_tx_timing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">can_id</span><span class="p">,</span> <span class="n">period</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置硬件定时发送</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">             硬件定时发送目前不支持</span>
+
+<span class="sd">        :param can_id: CAN 消息 id</span>
+<span class="sd">        :param period: 发送时间间隔 (ms)</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">can_id_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">(</span><span class="n">can_id</span><span class="p">)</span>
+        <span class="n">period_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">setTxTiming</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">can_id_temp</span><span class="p">,</span> <span class="n">period_temp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.check_if_blink_supported">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_blink_supported">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_blink_supported</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_result</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查通道是否支持物理接口闪烁</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                通道物理接口闪烁目前不支持</span>
+
+<span class="sd">        :param check_result: 传出检查结果（True,False)</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">supported_temp</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">isBlinkSupported</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">supported_temp</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">supported_temp</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.set_channel_blink">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.set_channel_blink">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_channel_blink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置通道物理接口闪烁</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">                通道物理接口闪烁目前不支持</span>
+
+<span class="sd">        :param enable: 使能开关 True: open ; False: close</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">enable</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">blinkChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">blinkChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ITICANChannel.check_if_channel_blinking">
+<a class="viewcode-back" href="../../iticanwrapper.html#iticanwrapper.itican_py_wrapper.ITICANChannel.check_if_channel_blinking">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_channel_blinking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_result</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查通道物理接口是否处在闪烁状态</span>
+
+<span class="sd">         .. todo::</span>
+<span class="sd">                通道物理接口闪烁目前不支持</span>
+
+<span class="sd">        :param check_result: 传出检查结果（True,False)</span>
+<span class="sd">        :return: getLastError 错误码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_flag</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">initialization_error</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">importDLL</span><span class="o">.</span><span class="n">dll</span><span class="o">.</span><span class="n">isChannelBlinking</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chn_pointer</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">status</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">check_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">chn_index_s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">chn_count</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">target_chn_container0</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">target_chn_container1</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">rt</span> <span class="o">=</span> <span class="n">ITICANChannel</span><span class="o">.</span><span class="n">find_all_channels</span><span class="p">(</span><span class="n">chn_index_s</span><span class="p">,</span> <span class="n">chn_count</span><span class="p">)</span>
+    <span class="n">chn0</span> <span class="o">=</span> <span class="n">ITICANChannel</span><span class="o">.</span><span class="n">get_channel</span><span class="p">(</span><span class="n">target_chn_container0</span><span class="p">,</span> <span class="n">chn_index_s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">rt1</span> <span class="o">=</span> <span class="n">target_chn_container0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">open_channel</span><span class="p">(</span><span class="n">OpenType</span><span class="o">.</span><span class="n">FD_CAN</span><span class="p">,</span> <span class="n">OpenMode</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span>
+    <span class="n">chn_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rt2</span> <span class="o">=</span> <span class="n">target_chn_container0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_channel_name</span><span class="p">(</span><span class="n">chn_name</span><span class="p">)</span>
+    <span class="n">rt3</span> <span class="o">=</span> <span class="n">target_chn_container0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_custom_baud_rate</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">rt4</span> <span class="o">=</span> <span class="n">target_chn_container0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_custom_fd_baud_rate</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+    <span class="n">baud_rate</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rt5</span> <span class="o">=</span> <span class="n">target_chn_container0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_baud_rate</span><span class="p">(</span><span class="n">baud_rate</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="n">can_msg</span> <span class="o">=</span> <span class="n">CANMessage</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">Classic_CAN</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">rt3</span> <span class="o">=</span> <span class="n">target_chn_container0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_message</span><span class="p">(</span><span class="n">can_msg</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">err_spec</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rrt</span> <span class="o">=</span> <span class="n">ITICANChannel</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">(</span><span class="o">-</span><span class="mi">189</span><span class="p">,</span> <span class="n">err_spec</span><span class="p">)</span>
+    <span class="n">cc</span> <span class="o">=</span> <span class="n">ITICANChannel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">chn_index_s</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">chn_count</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
