@@ -12,33 +12,83 @@ _CAN_Clock_Frequency_MHz = 80
 
 class OpenType(Enum):
     Classic_CAN = 0
+    """
+    经典 CAN 模式
+    """
     FD_CAN = 1
+    """
+    FD CAN 模式
+    """
     FD_CAN_BRS = 2
+    """
+    变速率 FD CAN 模式
+    """
     FD_CAN_NO_ISO = 3
+    """
+    非 ISO FD CAN 模式，目前不支持
+    """
 
 
 class OpenMode(Enum):
     Normal = 0
+    """普通模式"""
     Listen = 1
+    """
+    仅监听模式，目前不支持
+    """
     Loopback = 2
+    """
+    内部回环模式，目前不支持
+    """
 
 
 class MessageType(Enum):
     Classic_CAN = 0
+    """
+    经典 CAN 帧
+    """
     Remote = 1
+    """
+    远程帧
+    """
     FD_CAN = 16
+    """
+    FD CAN 帧，不切换波特率
+    """
     FD_BRS_CAN = 24
+    """
+    FD CAN 帧，切换波特率
+    """
 
 
 class TxMode(Enum):
     Normal = 0
+    """普通 CAN 消息"""
     AUTO_SEND = 1
+    """硬件自动发送模式下的 CAN 刷新消息, 目前不支持"""
     QUEUE_SEND = 2
+    """队列发送模式，目前不支持"""
 
 
 class CANMessage:
+    """
+                CAN 消息数据结构
 
-    def __init__(self, can_id, can_type, can_extended, can_data):
+                :param can_id: CAN 通信id
+                :param can_type:  CAN 消息类型
+                :param can_extended:  CAN 消息拓展帧属性
+                :param can_data:  CAN 消息数据段
+            """
+    def __init__(self, can_id: int, can_type: MessageType, can_extended: int, can_data: list):
+
+        """
+            CAN 消息数据结构
+
+            :param can_id: CAN 通信id
+            :param can_type:  CAN 消息类型
+            :param can_extended:  CAN 消息拓展帧属性
+            :param can_data:  CAN 消息数据段
+        """
         self.id_ = can_id
         self.type_: MessageType = can_type
         self.extended_ = can_extended
@@ -58,6 +108,7 @@ class ITICANChannel:
     def find_all_channels(chn_names_output: list, chn_count_output: list):
         """
         查找所有通道引用名
+
         :param chn_names_output: 清空 list 后，传出存在的所有通道索引名的列表
         :param chn_count_output: 清空 list 后，传出通道索引个数，保存在 index=0 处
         :return:
@@ -82,9 +133,10 @@ class ITICANChannel:
     def get_channel(chn_container: list, chn_index: str):
         """
         获取通道
-        @param chn_container: 用于传出通道实例对象，清空 list 后，保存在 index=0 处
-        @param chn_index: 目标通道对应索引名
-        @return: getLastError 错误码
+
+        :param chn_container: 用于传出通道实例对象，清空 list 后，保存在 index=0 处
+        :param chn_index: 目标通道对应索引名
+        :return: getLastError 错误码
         """
         chn_container.clear()
         # 转换参数
@@ -104,9 +156,10 @@ class ITICANChannel:
     def get_last_error(error_code, error_specification_output: list):
         """
         解析错误码
+
         :param error_code: 其他函数返回值（错误码）
         :param error_specification_output: 清空 list，在 index=0 处填入错误描述
-        :return:
+        :return: 0
         """
         str_temp = ctypes.create_string_buffer(500)
         error_code_temp = ctypes.c_int32(error_code)
@@ -118,10 +171,11 @@ class ITICANChannel:
 
     def open_channel(self, open_type: OpenType, open_mode: OpenMode):
         """
-        开启通道
-        @param open_type: OpenType
-        @param open_mode: OpenMode
-        @return: getLastError 错误码
+         开启通道
+
+        :param open_type: OpenType
+        :param open_mode: OpenMode
+        :return: getLastError 错误码
         """
         if not self._inner_flag:
             raise TypeError(initialization_error)
@@ -156,6 +210,7 @@ class ITICANChannel:
     def close_channel(self):
         """
         关闭通道
+
         :return: getLastError 错误码
         """
         if not self._inner_flag:
@@ -165,8 +220,9 @@ class ITICANChannel:
 
     def get_channel_name(self, chn_name_output: list):
         """
+        读取通道索引名
 
-        :param chn_name_output: list ; 清空 list 后，获取通道索引名称，保存在 index=0 处
+        :param chn_name_output: 清空 list 后，获取通道索引名称，保存在 index=0 处
         :return: getLastError 错误码
         """
         if not self._inner_flag:
@@ -181,7 +237,8 @@ class ITICANChannel:
     def set_baud_rate(self, baud_rate):
         """
         设置通道仲裁段波特率
-        :param baud_rate: uint64 ; 仲裁段波特率参数
+
+        :param baud_rate: 仲裁段波特率参数
         :return: getLastError 错误码
         """
         if not self._inner_flag:
@@ -216,7 +273,8 @@ class ITICANChannel:
     def get_baud_rate(self, baud_rate_output: list):
         """
         获取仲裁段波特率
-        :param baud_rate_output: list ; 传出仲裁段波特率，清空 list 后，保存仲裁段波特率在 index=0 处
+
+        :param baud_rate_output: 传出仲裁段波特率，清空 list 后，保存仲裁段波特率在 index=0 处
         :return: getLastError 错误码
         """
         if not self._inner_flag:
@@ -231,6 +289,7 @@ class ITICANChannel:
     def set_fd_baud_rate(self, baud_rate_input: int):
         """
         设置数据段波特率
+
         :param baud_rate_input: 数据段波特率参数
         :return: getLastError 错误码
         """
@@ -274,7 +333,8 @@ class ITICANChannel:
     def get_fd_baud_rate(self, baud_rate_output: list):
         """
         获取数据段波特率参数
-        :param baud_rate_output: list ; 传出数据段波特率参数，清空 list 后， 保存在 index=0 处
+
+        :param baud_rate_output: 传出数据段波特率参数，清空 list 后， 保存在 index=0 处
         :return: getLastError 错误码
         """
         if not self._inner_flag:
@@ -288,8 +348,9 @@ class ITICANChannel:
 
     def get_custom_baud_rate(self, custom_baud_rate_str_output: list):
         """
-        获取自定义波特率
-        :param custom_baud_rate_str_output: list ; 传出字符串形式的波特率参数，清空 list， 保存在 index=0 的位置
+        获取波特率参数
+
+        :param custom_baud_rate_str_output: list ; 传出字符串形式的波特率参数（hex,hex），清空 list， 保存在 index=0 的位置
         :return: getLastError 错误码
         """
         if not self._inner_flag:
@@ -304,6 +365,7 @@ class ITICANChannel:
     def set_message(self, one_message: CANMessage, timeout=0):
         """
         设置一条 CAN 消息
+
         :param one_message: CAN 消息（CANMessage）
         :param timeout: 设置 CAN 消息操作的超时时间，底层使用队列缓冲则该参数无效（底层使用队列缓冲）
         :return: getLastError 错误码
@@ -324,8 +386,9 @@ class ITICANChannel:
     def set_messages(self, messages_container: list, items_output: list, timeout=0):
         """
         设置多条 CAN 消息
-        :param messages_container: list ; 容纳多条 CAN 消息（CANMessage）
-        :param items_output: list ; 传出设置成功的 CAN 消息的个数，清空 list 后，保存到 index=0 处
+
+        :param messages_container: 容纳多条 CAN 消息（CANMessage）
+        :param items_output: 传出设置成功的 CAN 消息的个数，清空 list 后，保存到 index=0 处
         :param timeout: 设置单条 CAN 消息的超时时间
         :return: getLastError 错误码
         """
@@ -347,7 +410,11 @@ class ITICANChannel:
     def get_message_count(self, message_count_output: list):
         """
         传出已接收CAN消息个数
-        :param message_count_output: list ; 传出传出已接收CAN消息个数，清空 list，保存在 index=0 处
+
+        .. TODO::
+                检查已接收 CAN 消息个数目前不支持
+
+        :param message_count_output: 传出已接收CAN消息个数，清空 list，保存在 index=0 处
         :return: getLastError 错误码
         """
         if not self._inner_flag:
@@ -361,7 +428,13 @@ class ITICANChannel:
         return result
 
     def get_message(self, one_message_output: list, timeout=0):
+        """
+        读取一条 CAN 消息
 
+        :param one_message_output: 清空List后，在 index=0 处填入一条 CAN 消息
+        :param timeout: 读取操作超时时长
+        :return:
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         id_temp = ctypes.c_uint32(0)
@@ -385,6 +458,15 @@ class ITICANChannel:
         return result
 
     def get_messages(self, messages_container: list, items_in_output: list, timeout: int = 0):
+    def get_messages(self, messages_container: list, items: int, timeout: int = 0):
+        """
+        读取多条 CAN 消息
+
+        :param messages_container: 清空list后，填入 CAN 消息
+        :param items: 预期读取 CAN 消息个数
+        :param timeout: 单条 CAN消息接收操作超时时长
+        :return: getLastError 错误码
+        """
 
         if not self._inner_flag:
             raise TypeError(initialization_error)
@@ -403,6 +485,15 @@ class ITICANChannel:
         return 0
 
     def check_if_termination_supported(self, check_result: list):
+        """
+        检查硬件是否支持使用内置终端电阻
+
+        .. todo::
+                内置终端电阻目前不支持
+
+        :param check_result: 传出检查结果
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         supported_temp = ctypes.c_uint8(0)
@@ -413,6 +504,15 @@ class ITICANChannel:
         return result
 
     def set_termination(self, enable: bool):
+        """
+        设置硬件内部终端电阻开关
+
+        .. todo::
+            内置终端电阻目前不支持
+
+        :param enable: 使能开关; True, 开启; False, 关闭
+        :return:
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         result = 0
@@ -423,6 +523,15 @@ class ITICANChannel:
         return result
 
     def check_if_termination_enabled(self, enabled_output: list):
+        """
+        检查硬件是否已启动内置终端电阻
+
+        .. todo::
+                内置终端电阻目前不支持
+
+        :param enabled_output: 传出检查结果 (Ture,False)
+        :return: getLastError 错误码
+        """
 
         if not self._inner_flag:
             raise TypeError(initialization_error)
@@ -434,6 +543,15 @@ class ITICANChannel:
         return result
 
     def check_if_echo_message_supported(self, check_result: list):
+        """
+        检查硬件是否支持回显已发送的 CAN 消息
+
+        .. todo::
+                消息回显目前不支持
+
+        :param check_result: 传出检查结果 (True,False)
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         supported_temp = ctypes.c_uint8(0)
@@ -444,6 +562,15 @@ class ITICANChannel:
         return result
 
     def set_echo_message(self, enable: bool):
+        """
+        使能 CAN 消息回显
+
+        .. todo::
+                消息回显目前不支持
+
+        :param enable: 使能开关； True, 开启 ; False, 关闭
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         result = 0
@@ -454,6 +581,15 @@ class ITICANChannel:
         return result
 
     def check_if_echo_message_enabled(self, check_result: list):
+        """
+        检查硬件是否已启动回显已发送的 CAN 消息
+
+        .. todo::
+                消息回显目前不支持
+
+        :param check_result: 传出检查结果 (True,False)
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         enabled_temp = ctypes.c_uint8(0)
@@ -464,6 +600,15 @@ class ITICANChannel:
         return result
 
     def bus_error_report(self, enable: bool):
+        """
+        设置硬件是否向上位机响应总线错误信息
+
+        .. todo::
+                硬件响应总线错误信息目前不支持
+
+        :param enable: 使能开关
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         result = 0
@@ -474,6 +619,15 @@ class ITICANChannel:
         return result
 
     def apply_settings(self, temporary: bool):
+        """
+        应用硬件参数设置
+
+        .. todo::
+            硬件保存设置信息目前不支持
+
+        :param temporary: 设置信息是否保存在硬件中 False: 保存在硬件中； True: 不保存在硬件中
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         result = 0
@@ -484,6 +638,13 @@ class ITICANChannel:
         return result
 
     def check_if_tx_mode_supported(self, mode: TxMode, check_result):
+        """
+        检查特定工作模式是否支持
+
+        :param mode: 模式选择
+        :param check_result: 传出检查结果(True,False)
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         mode_temp = ctypes.c_uint8(mode.value)
@@ -495,6 +656,15 @@ class ITICANChannel:
         return result
 
     def set_tx_mode(self, mode: TxMode):
+        """
+        设置发送模式
+
+        .. todo::
+             发送模式切换目前不支持
+
+        :param mode: 模式选择
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         mode_temp = ctypes.c_uint8(mode.value)
@@ -502,6 +672,16 @@ class ITICANChannel:
         return result
 
     def set_tx_timing(self, can_id, period):
+        """
+        设置硬件定时发送
+
+        .. todo::
+             硬件定时发送目前不支持
+
+        :param can_id: CAN 消息 id
+        :param period: 发送时间间隔 (ms)
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         can_id_temp = ctypes.c_uint32(can_id)
@@ -510,6 +690,15 @@ class ITICANChannel:
         return result
 
     def check_if_blink_supported(self, check_result: list):
+        """
+        检查通道是否支持物理接口闪烁
+
+        .. todo::
+                通道物理接口闪烁目前不支持
+
+        :param check_result: 传出检查结果（True,False)
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         supported_temp = ctypes.c_uint8(0)
@@ -520,6 +709,15 @@ class ITICANChannel:
         return result
 
     def set_channel_blink(self, enable: bool):
+        """
+        设置通道物理接口闪烁
+
+        .. todo::
+                通道物理接口闪烁目前不支持
+
+        :param enable: 使能开关 True: open ; False: close
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         result = 0
@@ -530,6 +728,15 @@ class ITICANChannel:
         return result
 
     def check_if_channel_blinking(self, check_result: list):
+        """
+        检查通道物理接口是否处在闪烁状态
+
+         .. todo::
+                通道物理接口闪烁目前不支持
+
+        :param check_result: 传出检查结果（True,False)
+        :return: getLastError 错误码
+        """
         if not self._inner_flag:
             raise TypeError(initialization_error)
         status = ctypes.c_uint8(0)
