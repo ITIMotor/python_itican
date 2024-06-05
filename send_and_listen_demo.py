@@ -22,7 +22,7 @@ def ListenMessageTest(chn):
         rt = chn.get_message(can_msg, 5000)
         if rt == 0:
             counter += 1
-            print(counter,can_msg[0].id_, can_msg[0].type_, can_msg[0].extended_, can_msg[0].data_)
+            print(counter,can_msg[0].id_, can_msg[0].type_, can_msg[0].extended_, can_msg[0].data_,can_msg[0].timestamp_)
 
 
 # 按装订区域中的绿色按钮以运行脚本。

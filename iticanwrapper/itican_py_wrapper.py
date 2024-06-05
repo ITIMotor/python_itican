@@ -78,8 +78,9 @@ class CANMessage:
                 :param can_type:  CAN 消息类型
                 :param can_extended:  CAN 消息拓展帧属性； 0, 非拓展帧；非 0， 拓展帧
                 :param can_data:  CAN 消息数据段
+                :param timestamp: 接收 CAN 消息时间戳
             """
-    def __init__(self, can_id: int, can_type: MessageType, can_extended: int, can_data: list):
+    def __init__(self, can_id: int, can_type: MessageType, can_extended: int, can_data: list, timestamp=0):
 
         """
             CAN 消息数据结构
@@ -88,11 +89,13 @@ class CANMessage:
             :param can_type:  CAN 消息类型
             :param can_extended:  CAN 消息拓展帧属性
             :param can_data:  CAN 消息数据段
+            :param timestamp: 接收 CAN 消息时间戳
         """
         self.id_ = can_id
         self.type_: MessageType = can_type
         self.extended_ = can_extended
         self.data_ = can_data
+        self.timestamp_ = timestamp
 
 
 initialization_error = "this instance is not acquired from ITICANChannel's static method"
@@ -453,7 +456,7 @@ class ITICANChannel:
             data_list = list(data_temp)[:data_l_temp.value]
             one_message_output.clear()
             one_message_output.append(
-                CANMessage(id_temp.value, MessageType(message_type_temp.value), can_extended_temp.value, data_list[:]))
+                CANMessage(id_temp.value, MessageType(message_type_temp.value), can_extended_temp.value, data_list[:],timestamp_temp.value))
         return result
 
     def get_messages(self, messages_container: list, items: int, timeout: int = 0):
